@@ -28,6 +28,7 @@
             color: var(--text-white);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         header {
@@ -94,17 +95,28 @@
             width: 100%;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 8rem 2rem 3rem;
+        .main-container {
+            display: flex;
+            max-width: 100vw;
+            overflow: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding-top: 8rem;
         }
         
         .content-section {
+            min-width: 100vw;
+            scroll-snap-align: start;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
             background: rgba(30, 10, 78, 0.6);
             border-radius: 15px;
             padding: 2rem;
-            margin-bottom: 2rem;
             border: 1px solid rgba(157, 78, 221, 0.2);
             backdrop-filter: blur(5px);
         }
@@ -182,22 +194,34 @@
         
         .rules {
             margin-top: 1.5rem;
+            counter-reset: rule-counter;
         }
         
         .rule {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 2.5rem;
             position: relative;
             color: var(--text-light);
         }
         
         .rule:before {
-            content: "•";
+            counter-increment: rule-counter;
+            content: counter(rule-counter) ".";
             position: absolute;
             left: 0;
             color: var(--accent-purple);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
+        }
+        
+        .rule-detail {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-top: 0.3rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-purple);
         }
         
         .news-container {
@@ -245,12 +269,36 @@
             box-shadow: 0 8px 25px rgba(74, 107, 255, 0.5);
         }
         
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 90;
+        }
+        
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(157, 78, 221, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-dot.active {
+            background: var(--accent-purple);
+            transform: scale(1.2);
+        }
+        
         footer {
             text-align: center;
             padding: 2rem;
             background: rgba(15, 5, 36, 0.9);
-            margin-top: 3rem;
             border-top: 1px solid rgba(157, 78, 221, 0.2);
+            min-width: 100vw;
         }
         
         footer a {
@@ -261,12 +309,6 @@
         
         footer a:hover {
             color: var(--accent-purple);
-        }
-        
-        /* Анимация градиента при скролле */
-        @keyframes gradientScroll {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 0% 100%; }
         }
         
         .scroll-gradient {
@@ -283,6 +325,11 @@
             z-index: -1;
             animation: gradientScroll 5s ease infinite alternate;
         }
+        
+        @keyframes gradientScroll {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -293,90 +340,139 @@
         <div class="nav-container">
             <div class="logo">StateWar</div>
             <nav>
-                <a href="#main">Главная</a>
-                <a href="#features">Возможности</a>
-                <a href="#rules">Правила</a>
-                <a href="#news">Новости</a>
+                <a href="#" class="nav-link" data-section="0">Главная</a>
+                <a href="#" class="nav-link" data-section="1">Возможности</a>
+                <a href="#" class="nav-link" data-section="2">Правила</a>
+                <a href="#" class="nav-link" data-section="3">Новости</a>
                 <a href="https://t.me/StateWar_bot" target="_blank">Начать игру</a>
             </nav>
         </div>
     </header>
     
-    <div class="container">
-        <section id="main" class="content-section">
-            <h1>StateWar Bot</h1>
-            <p>Официальный сайт бота для стратегических баталий в Telegram. Создайте свое государство, развивайте экономику и ведите войны с другими игроками!</p>
-            <a href="https://t.me/StateWar_bot" class="btn" target="_blank">Запустить бота</a>
-            
-            <div class="news-container">
-                <h3><i class="fas fa-bullhorn"></i> Последние обновления:</h3>
-                <div class="news-item">
-                    <strong>Версия 2.3.1</strong> - Добавлена новая система альянсов и коалиций
-                </div>
-                <div class="news-item">
-                    <strong>Версия 2.2.9</strong> - Исправлены баги в экономической системе и балансе ресурсов
-                </div>
-            </div>
-        </section>
-        
-        <section id="features" class="content-section">
-            <h2><i class="fas fa-cogs"></i> Возможности бота</h2>
-            <div class="features">
-                <div class="feature">
-                    <h3><i class="fas fa-flag"></i> Создание государства</h3>
-                    <p>Основайте свою страну, выберите флаг, гимн и политическую систему. Разработайте уникальную конституцию и законы.</p>
-                </div>
-                <div class="feature">
-                    <h3><i class="fas fa-chart-line"></i> Экономика</h3>
-                    <p>Развивайте промышленность, собирайте налоги, торгуйте ресурсами. Создавайте сложные экономические системы.</p>
-                </div>
-                <div class="feature">
-                    <h3><i class="fas fa-fighter-jet"></i> Военная система</h3>
-                    <p>Создавайте армию, разрабатывайте оружие, ведите войны. Используйте тактики и стратегии для победы.</p>
-                </div>
-                <div class="feature">
-                    <h3><i class="fas fa-handshake"></i> Дипломатия</h3>
-                    <p>Заключайте союзы, создавайте коалиции, влияйте на мировую политику. Участвуйте в международных организациях.</p>
+    <div class="main-container" id="main-container">
+        <section class="content-section">
+            <div class="section-content">
+                <h1>StateWar Bot</h1>
+                <p>Официальный сайт бота для стратегических баталий в Telegram. Создайте свое государство, развивайте экономику и ведите войны с другими игроками!</p>
+                <a href="https://t.me/StateWar_bot" class="btn" target="_blank">Запустить бота</a>
+                
+                <div class="news-container">
+                    <h3><i class="fas fa-bullhorn"></i> Последние обновления:</h3>
+                    <div class="news-item">
+                        <strong>Версия 2.3.1</strong> - Добавлена новая система альянсов и коалиций
+                    </div>
+                    <div class="news-item">
+                        <strong>Версия 2.2.9</strong> - Исправлены баги в экономической системе и балансе ресурсов
+                    </div>
                 </div>
             </div>
         </section>
         
-        <section id="rules" class="content-section">
-            <h2><i class="fas fa-gavel"></i> Правила игры</h2>
-            <div class="rules">
-                <div class="rule">Реклама сторонних проектов запрещена без согласования с администрацией</div>
-                <div class="rule">Расизм, религиозный и политический розжиг строго запрещены</div>
-                <div class="rule">Оскорбления участников и провокации конфликтов не допускаются</div>
-                <div class="rule">Контент 18+ (фото/видео/текст) запрещен в любом виде</div>
-                <div class="rule">Скримеры и материалы с насилием блокируются без предупреждения</div>
-                <div class="rule">Флуд и спам караются ограничением доступа к боту</div>
-                <div class="rule">Запрещено копировать аккаунты администрации и выдавать себя за них</div>
-                <div class="rule">Продажа аккаунтов, ресурсов и услуг запрещена</div>
-                <div class="rule">Финансовые махинации и скам приводят к перманентному бану</div>
-                <div class="rule">Попрошайничество и требования "дать в долг" запрещены</div>
-                <div class="rule">Кредитные отношения - личная ответственность игроков</div>
-                <div class="rule">Продажа/покупка игровой валюты запрещена</div>
-                <div class="rule">Не злоупотребляйте обращениями к администрации</div>
-                <div class="rule">Запрещены ники, нарушающие правила или оскорбляющие других</div>
-                <div class="rule">Общение разрешено на русском/английском/украинском языках</div>
+        <section class="content-section">
+            <div class="section-content">
+                <h2><i class="fas fa-cogs"></i> Возможности бота</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3><i class="fas fa-flag"></i> Создание государства</h3>
+                        <p>Основайте свою страну, выберите флаг, гимн и политическую систему.</p>
+                        <p class="rule-detail">Доступны различные формы правления и экономические модели</p>
+                    </div>
+                    <div class="feature">
+                        <h3><i class="fas fa-chart-line"></i> Экономика</h3>
+                        <p>Развивайте промышленность, собирайте налоги, торгуйте ресурсами.</p>
+                        <p class="rule-detail">Сложная система производства и торговли</p>
+                    </div>
+                    <div class="feature">
+                        <h3><i class="fas fa-fighter-jet"></i> Военная система</h3>
+                        <p>Создавайте армию, разрабатывайте оружие, ведите войны.</p>
+                        <p class="rule-detail">Тактические бои с различными типами войск</p>
+                    </div>
+                    <div class="feature">
+                        <h3><i class="fas fa-handshake"></i> Дипломатия</h3>
+                        <p>Заключайте союзы, создавайте коалиции, влияйте на мировую политику.</p>
+                        <p class="rule-detail">Система договоров и международных организаций</p>
+                    </div>
+                </div>
             </div>
         </section>
         
-        <section id="news" class="content-section">
-            <h2><i class="fas fa-newspaper"></i> Новости и обновления</h2>
-            <div class="news-container">
-                <div class="news-item">
-                    <strong>25.10.2023</strong> - Добавлена новая система рейтингов и достижений. Теперь ваши успехи будут отмечены!
-                </div>
-                <div class="news-item">
-                    <strong>18.10.2023</strong> - Исправлены критические ошибки в боевой системе. Баланс сил восстановлен.
-                </div>
-                <div class="news-item">
-                    <strong>10.10.2023</strong> - Введены еженедельные турниры с призами для самых активных игроков.
+        <section class="content-section">
+            <div class="section-content">
+                <h2><i class="fas fa-gavel"></i> Правила игры</h2>
+                <div class="rules">
+                    <div class="rule">Реклама сторонних проектов
+                        <span class="rule-detail">Запрещена без согласования с администрацией</span>
+                    </div>
+                    <div class="rule">Расизм и розжиг
+                        <span class="rule-detail">Расовый, религиозный и политический розжиг строго запрещены</span>
+                    </div>
+                    <div class="rule">Оскорбления участников
+                        <span class="rule-detail">Не допускаются оскорбления и провокации конфликтов</span>
+                    </div>
+                    <div class="rule">Контент 18+
+                        <span class="rule-detail">Запрещен в любом виде (фото/видео/текст)</span>
+                    </div>
+                    <div class="rule">Скримеры и насилие
+                        <span class="rule-detail">Материалы с насилием блокируются без предупреждения</span>
+                    </div>
+                    <div class="rule">Флуд и спам
+                        <span class="rule-detail">Караются ограничением доступа к боту</span>
+                    </div>
+                    <div class="rule">Копирование администрации
+                        <span class="rule-detail">Запрещено выдавать себя за администрацию</span>
+                    </div>
+                    <div class="rule">Продажа аккаунтов
+                        <span class="rule-detail">Запрещена продажа аккаунтов, ресурсов и услуг</span>
+                    </div>
+                    <div class="rule">Финансовые махинации
+                        <span class="rule-detail">Скам приводит к перманентному бану</span>
+                    </div>
+                    <div class="rule">Попрошайничество
+                        <span class="rule-detail">Запрещены требования "дать в долг"</span>
+                    </div>
+                    <div class="rule">Кредитные отношения
+                        <span class="rule-detail">Личная ответственность игроков</span>
+                    </div>
+                    <div class="rule">Игровая валюта
+                        <span class="rule-detail">Запрещена продажа/покупка игровой валюты</span>
+                    </div>
+                    <div class="rule">Обращения к администрации
+                        <span class="rule-detail">Не злоупотребляйте обращениями</span>
+                    </div>
+                    <div class="rule">Ники игроков
+                        <span class="rule-detail">Запрещены оскорбительные и провокационные ники</span>
+                    </div>
+                    <div class="rule">Языки общения
+                        <span class="rule-detail">Разрешены русский/английский/украинский</span>
+                    </div>
                 </div>
             </div>
-            <a href="https://t.me/StateWar_news" class="btn" target="_blank"><i class="fas fa-paper-plane"></i> Все новости</a>
         </section>
+        
+        <section class="content-section">
+            <div class="section-content">
+                <h2><i class="fas fa-newspaper"></i> Новости и обновления</h2>
+                <div class="news-container">
+                    <div class="news-item">
+                        <strong>25.10.2023</strong> - Добавлена новая система рейтингов и достижений. Теперь ваши успехи будут отмечены!
+                    </div>
+                    <div class="news-item">
+                        <strong>18.10.2023</strong> - Исправлены критические ошибки в боевой системе. Баланс сил восстановлен.
+                    </div>
+                    <div class="news-item">
+                        <strong>10.10.2023</strong> - Введены еженедельные турниры с призами для самых активных игроков.
+                    </div>
+                </div>
+                <a href="https://t.me/StateWar_news" class="btn" target="_blank"><i class="fas fa-paper-plane"></i> Все новости</a>
+            </div>
+        </section>
+    </div>
+    
+    <div class="scroll-indicator" id="scroll-indicator">
+        <div class="scroll-dot active" data-index="0"></div>
+        <div class="scroll-dot" data-index="1"></div>
+        <div class="scroll-dot" data-index="2"></div>
+        <div class="scroll-dot" data-index="3"></div>
     </div>
     
     <div class="social-links">
@@ -391,11 +487,79 @@
     </div>
     
     <footer>
-        <p>© 2025 @StateWar Bot | Официальный бот: <a href="https://t.me/StateWar_bot" target="_blank">@StateWar_bot</a></p>
-        <p>Техническая поддержка: <a href="https://t.me/Q1234Q56" target="_blank">@StateWar_support</a></p>
+        <p>© 2023 StateWar Bot | Официальный бот: <a href="https://t.me/StateWar_bot" target="_blank">@StateWar_bot</a></p>
+        <p>Техническая поддержка: <a href="https://t.me/q1234q56" target="_blank">@q1234q56</a></p>
     </footer>
     
     <script>
+        // Горизонтальная навигация между секциями
+        const mainContainer = document.getElementById('main-container');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const scrollDots = document.querySelectorAll('.scroll-dot');
+        let isScrolling = false;
+        let currentSection = 0;
+        
+        // Обработчики для навигационных ссылок
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionIndex = parseInt(link.getAttribute('data-section'));
+                scrollToSection(sectionIndex);
+            });
+        });
+        
+        // Обработчики для точек прокрутки
+        scrollDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionIndex = parseInt(dot.getAttribute('data-index'));
+                scrollToSection(sectionIndex);
+            });
+        });
+        
+        // Функция плавной прокрутки к секции
+        function scrollToSection(index) {
+            if (isScrolling) return;
+            
+            isScrolling = true;
+            currentSection = index;
+            
+            // Прокрутка контейнера
+            mainContainer.scrollTo({
+                left: window.innerWidth * index,
+                behavior: 'smooth'
+            });
+            
+            // Обновление активной точки
+            updateActiveDot(index);
+            
+            // Сброс флага после завершения анимации
+            setTimeout(() => {
+                isScrolling = false;
+            }, 800);
+        }
+        
+        // Обновление активной точки навигации
+        function updateActiveDot(index) {
+            scrollDots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            scrollDots[index].classList.add('active');
+        }
+        
+        // Обработчик событий прокрутки
+        mainContainer.addEventListener('scroll', () => {
+            if (isScrolling) return;
+            
+            const scrollPosition = mainContainer.scrollLeft;
+            const sectionWidth = window.innerWidth;
+            const newSection = Math.round(scrollPosition / sectionWidth);
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                updateActiveDot(newSection);
+            }
+        });
+        
         // Динамическое изменение фона при скролле
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
@@ -407,16 +571,6 @@
                 rgba(15, 5, 36, ${0.8 + scrollPercent * 0.2}), 
                 rgba(30, 10, 78, ${0.9 + scrollPercent * 0.1}), 
                 rgba(58, 29, 140, 1))`;
-        });
-        
-        // Плавная прокрутка для якорей
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
         });
     </script>
 </body>
