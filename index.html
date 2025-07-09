@@ -124,6 +124,22 @@
             box-shadow: 0 10px 25px rgba(74, 0, 224, 0.4);
         }
         
+        .compact-btn {
+            background: rgba(28, 0, 77, 0.7);
+            border: 2px solid #4a00e0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin: 10px auto;
+            max-width: 150px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .compact-btn:hover {
+            background: rgba(58, 0, 158, 0.7);
+        }
+        
         .rules-list {
             max-width: 800px;
             margin: 0 auto;
@@ -152,22 +168,6 @@
             font-size: 14px;
             padding-left: 10px;
             border-left: 2px solid #4a00e0;
-        }
-        
-        .back-btn {
-            margin-top: 30px;
-            display: inline-block;
-            padding: 12px 25px;
-            background: rgba(28, 0, 77, 0.7);
-            border: 2px solid #4a00e0;
-            border-radius: 8px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .back-btn:hover {
-            background: rgba(58, 0, 158, 0.7);
         }
         
         footer {
@@ -215,9 +215,9 @@
         }
 
         h2 {
-            word-break: keep-all;
             white-space: nowrap;
             margin: 20px auto;
+            font-size: 2rem;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -227,7 +227,6 @@
         <a href="#" class="nav-link" data-section="main">Главная</a>
         <a href="#" class="nav-link" data-section="about">О проекте</a>
         <a href="#" class="nav-link" data-section="rules">Правила</a>
-        <a href="#" class="nav-link" data-section="menu">Меню</a>
     </div>
     
     <div class="header">
@@ -260,7 +259,7 @@
                 <li>Воевать с другими игроками</li>
                 <li>Заключать союзы</li>
             </ul>
-            <div class="menu-item back-btn" data-section="main">НАЗАД</div>
+            <div class="compact-btn" data-section="main">НАЗАД</div>
         </div>
 
         <!-- Правила -->
@@ -323,35 +322,35 @@
                     Не писать создателю по поводу возвращения долга
                     <span class="rule-detail">Это ваши личные договоренности</span>
                 </div>
-                <div class="rule-item" data-number="16.">
+                <div class="rule-item" data-number="15.">
                     Скам строго запрещен
                     <span class="rule-detail">Наказывается перманентным баном</span>
                 </div>
-                <div class="rule-item" data-number="17.">
+                <div class="rule-item" data-number="16.">
                     Не надоедать админам по пустякам
                     <span class="rule-detail">Лишние обращения могут быть наказаны</span>
                 </div>
-                <div class="rule-item" data-number="18.">
+                <div class="rule-item" data-number="17.">
                     Использовать бота в личных сообщениях для некоторых действий
                     <span class="rule-detail">Некоторые функции доступны только в ЛС</span>
                 </div>
-                <div class="rule-item" data-number="19.">
+                <div class="rule-item" data-number="18.">
                     Не флудить пиаром кланов
                     <span class="rule-detail">Пиар разрешен не чаще 1 раза в 10-15 минут</span>
                 </div>
-                <div class="rule-item" data-number="20.">
+                <div class="rule-item" data-number="19.">
                     Не кидать ссылку на беседу с кланом
                     <span class="rule-detail">Клановая беседа только для участников клана</span>
                 </div>
-                <div class="rule-item" data-number="21.">
+                <div class="rule-item" data-number="20.">
                     Запрещено отправлять что-то, из-за чего вылетает Telegram
                     <span class="rule-detail">Наказывается баном</span>
                 </div>
-                <div class="rule-item" data-number="22.">
+                <div class="rule-item" data-number="21.">
                     Запрещены ники, которые противоречат правилам
                     <span class="rule-detail">Ники должны быть адекватными</span>
                 </div>
-                <div class="rule-item" data-number="23.">
+                <div class="rule-item" data-number="22.">
                     Общение разрешено на русском/английском/украинском языках
                     <span class="rule-detail">Администрация не предоставляет услуги перевода</span>
                 </div>
@@ -360,32 +359,7 @@
                 Администрация проекта вправе изменять причину и время наказания без объяснения причин.
                 Незнание правил не освобождает от ответственности.
             </div>
-            <div class="menu-item back-btn" data-section="main">НАЗАД</div>
-        </div>
-
-        <!-- Меню -->
-        <div id="menu" class="section">
-            <h2>МЕНЮ</h2>
-            <div class="menu">
-                <div class="menu-item">
-                    НАСТРОЙКИ
-                </div>
-                <div class="menu-item">
-                    ПОМОЩЬ
-                </div>
-                <div class="menu-item">
-                    ПРОФИЛЬ
-                </div>
-                <div class="menu-item">
-                    СТАТИСТИКА
-                </div>
-                <div class="menu-item">
-                    ЛИДЕРБОРД
-                </div>
-                <div class="menu-item" data-section="main">
-                    НАЗАД
-                </div>
-            </div>
+            <div class="compact-btn" data-section="main">НАЗАД</div>
         </div>
     </div>
     
@@ -406,7 +380,7 @@
 
     <script>
         // Переключение между разделами с анимацией
-        document.querySelectorAll('.nav-link, .menu-item, .back-btn').forEach(item => {
+        document.querySelectorAll('.nav-link, .menu-item, .compact-btn').forEach(item => {
             item.addEventListener('click', function(e) {
                 if (this.hasAttribute('data-section')) {
                     e.preventDefault();
@@ -432,4 +406,4 @@
         });
     </script>
 </body>
-                        </html>
+                    </html>
