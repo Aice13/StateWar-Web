@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
@@ -19,92 +19,155 @@
             display: flex;
             flex-direction: column;
             background-image: radial-gradient(circle at 50% 50%, #1a0a4e 0%, #0a0a1a 70%);
+            overflow-x: hidden;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(30, 10, 78, 0.5);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .nav-link {
+            color: #b388ff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .nav-link:hover {
+            color: #7c4dff;
+            background: rgba(123, 77, 255, 0.1);
         }
         
         .header {
             text-align: center;
-            padding: 40px 0 20px;
+            padding: 40px 20px 20px;
+            margin-top: 20px;
         }
         
         .header h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
             margin-bottom: 10px;
             background: linear-gradient(to right, #7c4dff, #b388ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 10px rgba(123, 77, 255, 0.3);
-        }
-        
-        .header p {
-            color: #b388ff;
-            margin-bottom: 30px;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        nav a {
-            color: #b388ff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: #7c4dff;
+            text-shadow: 0 0 15px rgba(123, 77, 255, 0.4);
         }
         
         .main-content {
-            text-align: center;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             padding: 0 20px;
+            position: relative;
         }
         
-        .main-content h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-            background: linear-gradient(to right, #7c4dff, #b388ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            padding: 20px;
+            visibility: hidden;
+            text-align: center;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
         }
         
         .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
         }
         
         .menu-item {
             background: rgba(28, 0, 77, 0.7);
             border: 2px solid #4a00e0;
-            border-radius: 10px;
-            padding: 20px 40px;
-            width: 100%;
-            max-width: 500px;
+            border-radius: 12px;
+            padding: 25px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(74, 0, 224, 0.2);
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
         }
         
         .menu-item:hover {
             background: rgba(58, 0, 158, 0.7);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(74, 0, 224, 0.3);
+            box-shadow: 0 10px 25px rgba(74, 0, 224, 0.4);
+        }
+        
+        .rules-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .rule-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .rule-item:before {
+            content: attr(data-number);
+            position: absolute;
+            left: 0;
+            color: #b388ff;
+            font-weight: bold;
+        }
+        
+        .rule-detail {
+            display: block;
+            margin-top: 5px;
+            color: #e2d6ff;
+            font-size: 14px;
+            padding-left: 10px;
+            border-left: 2px solid #4a00e0;
+        }
+        
+        .back-btn {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(28, 0, 77, 0.7);
+            border: 2px solid #4a00e0;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(58, 0, 158, 0.7);
         }
         
         footer {
@@ -121,6 +184,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            z-index: 100;
         }
         
         .social-link {
@@ -133,49 +197,50 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
         
         .social-link:hover {
             background: #7c4dff;
             transform: translateX(-5px);
         }
-
-        /* Скрытые разделы */
-        .section {
-            display: none;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .section.active {
-            display: block;
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="header">
-        <h1>StateWar</h1>
-        <p>statewar.github.io/StateWar_web/index.</p>
-    </div>
-    
-    <nav>
+    <div class="nav-container">
         <a href="#" class="nav-link" data-section="main">Главная</a>
         <a href="#" class="nav-link" data-section="about">О проекте</a>
         <a href="#" class="nav-link" data-section="rules">Правила</a>
         <a href="#" class="nav-link" data-section="menu">Меню</a>
-    </nav>
+    </div>
+    
+    <div class="header">
+        <h1 class="fade-in">STATEWAR</h1>
+    </div>
     
     <div class="main-content">
         <!-- Главная страница -->
         <div id="main" class="section active">
-            <h2>STATEWAR</h2>
             <div class="menu">
-                <div class="menu-item" data-section="about">О ПРОЕКТЕ</div>
-                <div class="menu-item" data-section="rules">ПРАВИЛА</div>
-                <a href="https://t.me/StateWar_bot" class="menu-item" target="_blank">НАЧАТЬ ИГРУ</a>
+                <div class="menu-item" data-section="about">
+                    О ПРОЕКТЕ
+                </div>
+                <div class="menu-item" data-section="rules">
+                    ПРАВИЛА
+                </div>
+                <a href="https://t.me/StateWar_bot" class="menu-item" target="_blank">
+                    НАЧАТЬ ИГРУ
+                </a>
             </div>
         </div>
 
@@ -183,39 +248,85 @@
         <div id="about" class="section">
             <h2>О ПРОЕКТЕ</h2>
             <p>StateWar - это стратегическая игра в Telegram, где вы можете:</p>
-            <ul>
+            <ul style="text-align: left; max-width: 600px; margin: 20px auto;">
                 <li>Создать своё государство</li>
                 <li>Развивать экономику и армию</li>
                 <li>Воевать с другими игроками</li>
                 <li>Заключать союзы</li>
             </ul>
-            <div class="menu">
-                <div class="menu-item" data-section="main">НАЗАД</div>
-            </div>
+            <a href="#" class="back-btn" data-section="main">НАЗАД</a>
         </div>
 
         <!-- Правила -->
         <div id="rules" class="section">
             <h2>ПРАВИЛА</h2>
-            <ol>
-                <li>Запрещена реклама без согласования</li>
-                <li>Не допускаются оскорбления</li>
-                <li>Запрещён контент 18+</li>
-                <li>Нельзя обманывать игроков</li>
-            </ol>
-            <div class="menu">
-                <div class="menu-item" data-section="main">НАЗАД</div>
+            <div class="rules-list">
+                <div class="rule-item" data-number="1.">
+                    Не заниматься рекламой сторонних групп/проектов без согласования Администратора
+                    <span class="rule-detail">Реклама запрещена в любом виде</span>
+                </div>
+                <div class="rule-item" data-number="2.">
+                    Не заниматься расовым, религиозным или политическим розжигом
+                    <span class="rule-detail">Расизм в любой форме запрещен</span>
+                </div>
+                <div class="rule-item" data-number="3.">
+                    Не оскорблять и не провоцировать на конфликты
+                    <span class="rule-detail">Уважайте других игроков</span>
+                </div>
+                <div class="rule-item" data-number="4.">
+                    Не трогать родителей и родных
+                    <span class="rule-detail">Личные границы должны соблюдаться</span>
+                </div>
+                <div class="rule-item" data-number="5.">
+                    Не публиковать контент 18+ (фото/видео)
+                    <span class="rule-detail">Строго запрещено</span>
+                </div>
+                <div class="rule-item" data-number="6.">
+                    Не нарушать покой в голосовом чате
+                    <span class="rule-detail">Громкие звуки и помехи запрещены</span>
+                </div>
+                <div class="rule-item" data-number="7.">
+                    Не флудить и не спамить
+                    <span class="rule-detail">Соблюдайте порядок в чате</span>
+                </div>
+                <div class="rule-item" data-number="8.">
+                    Не копировать аккаунты администрации
+                    <span class="rule-detail">Выдавать себя за админов запрещено</span>
+                </div>
+                <div class="rule-item" data-number="9.">
+                    Запрещено продавать аккаунты, контент и услуги
+                    <span class="rule-detail">Обмен валюты между ботами также запрещен</span>
+                </div>
+                <div class="rule-item" data-number="10.">
+                    Не присылать скримеры и контент с насилием
+                    <span class="rule-detail">Любой шок-контент запрещен</span>
+                </div>
             </div>
+            <a href="#" class="back-btn" data-section="main">НАЗАД</a>
         </div>
 
         <!-- Меню -->
         <div id="menu" class="section">
             <h2>МЕНЮ</h2>
-            <p>Дополнительные возможности:</p>
             <div class="menu">
-                <a href="#" class="menu-item">НАСТРОЙКИ</a>
-                <a href="#" class="menu-item">ПОМОЩЬ</a>
-                <div class="menu-item" data-section="main">НАЗАД</div>
+                <div class="menu-item">
+                    НАСТРОЙКИ
+                </div>
+                <div class="menu-item">
+                    ПОМОЩЬ
+                </div>
+                <div class="menu-item">
+                    ПРОФИЛЬ
+                </div>
+                <div class="menu-item">
+                    СТАТИСТИКА
+                </div>
+                <div class="menu-item">
+                    ЛИДЕРБОРД
+                </div>
+                <div class="menu-item" data-section="main">
+                    НАЗАД
+                </div>
             </div>
         </div>
     </div>
@@ -236,21 +347,29 @@
     </footer>
 
     <script>
-        // Переключение между разделами
-        document.querySelectorAll('.nav-link, .menu-item').forEach(item => {
+        // Переключение между разделами с анимацией
+        document.querySelectorAll('.nav-link, .menu-item, .back-btn').forEach(item => {
             item.addEventListener('click', function(e) {
-                if (this.hasAttribute('data-section')) {
+                if (this.hasAttribute('data-section') && !this.hasAttribute('href')) {
                     e.preventDefault();
-                    const sectionId = this.getAttribute('data-section');
+                    const currentActive = document.querySelector('.section.active');
+                    const nextSection = document.getElementById(this.getAttribute('data-section'));
                     
-                    // Скрываем все разделы
-                    document.querySelectorAll('.section').forEach(section => {
-                        section.classList.remove('active');
-                    });
-                    
-                    // Показываем выбранный раздел
-                    document.getElementById(sectionId).classList.add('active');
+                    if (currentActive && nextSection && currentActive !== nextSection) {
+                        currentActive.classList.remove('active');
+                        nextSection.classList.add('active');
+                    }
                 }
+            });
+        });
+
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.menu-item, h1, h2');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('fade-in');
+                }, 100 * index);
             });
         });
     </script>
