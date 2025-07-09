@@ -5,573 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StateWar - Официальный сайт</title>
     <style>
-        :root {
-            --primary-dark: #0f0524;
-            --primary-medium: #1e0a4e;
-            --primary-light: #3a1d8c;
-            --accent-blue: #4a6bff;
-            --accent-purple: #9d4edd;
-            --text-light: #e2d6ff;
-            --text-white: #ffffff;
-            --error-red: #ff4d6d;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(to bottom, var(--primary-dark), var(--primary-medium));
-            color: var(--text-white);
+            background-color: #0a0a1a;
+            color: white;
             min-height: 100vh;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        header {
-            background: rgba(30, 10, 78, 0.85);
-            padding: 1.5rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid var(--accent-purple);
-        }
-        
-        .nav-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            flex-direction: column;
+            background-image: radial-gradient(circle at 50% 50%, #1a0a4e 0%, #0a0a1a 70%);
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+        .header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #7c4dff, #b388ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 0 10px rgba(123, 77, 255, 0.3);
+        }
+        
+        .header p {
+            color: #b388ff;
+            margin-bottom: 30px;
         }
         
         nav {
             display: flex;
-            gap: 2rem;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
         }
         
         nav a {
-            color: var(--text-light);
+            color: #b388ff;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            transition: width 0.3s ease;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
         }
         
         nav a:hover {
-            color: var(--text-white);
+            color: #7c4dff;
         }
         
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .main-container {
+        .main-content {
+            text-align: center;
+            flex-grow: 1;
             display: flex;
-            max-width: 100vw;
-            overflow: hidden;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding-top: 8rem;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
         }
         
-        .content-section {
-            min-width: 100vw;
-            scroll-snap-align: start;
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-        
-        .section-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(30, 10, 78, 0.6);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        
-        h1, h2, h3 {
-            color: var(--text-white);
-            margin-bottom: 1.5rem;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+        .main-content h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            background: linear-gradient(to right, #7c4dff, #b388ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         
-        h2 {
-            font-size: 2.2rem;
-            border-bottom: 2px solid var(--accent-purple);
-            padding-bottom: 0.5rem;
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-        }
-        
-        p {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
-            border: none;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(74, 107, 255, 0.6);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .feature {
-            background: rgba(40, 15, 90, 0.5);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--accent-blue);
-        }
-        
-        .feature:hover {
-            transform: translateY(-5px);
-            background: rgba(40, 15, 90, 0.8);
-            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.2);
-        }
-        
-        .rules {
-            margin-top: 1.5rem;
-            counter-reset: rule-counter;
-        }
-        
-        .rule {
-            margin-bottom: 1rem;
-            padding-left: 2.5rem;
-            position: relative;
-            color: var(--text-light);
-        }
-        
-        .rule:before {
-            counter-increment: rule-counter;
-            content: counter(rule-counter) ".";
-            position: absolute;
-            left: 0;
-            color: var(--accent-purple);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        
-        .rule-detail {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            opacity: 0.8;
-            margin-top: 0.3rem;
-            padding-left: 1rem;
-            border-left: 2px solid var(--accent-purple);
-        }
-        
-        .news-container {
-            margin-top: 2rem;
-        }
-        
-        .news-item {
-            background: rgba(40, 15, 90, 0.5);
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--accent-purple);
-        }
-        
-        .news-item strong {
-            color: var(--accent-blue);
-        }
-        
-        .social-links {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+        .menu {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            z-index: 90;
-        }
-        
-        .social-link {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            text-decoration: none;
-            display: flex;
             align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
-            font-weight: 500;
+            gap: 25px;
+            margin-bottom: 50px;
         }
         
-        .social-link:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 8px 25px rgba(74, 107, 255, 0.5);
-        }
-        
-        .scroll-indicator {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            z-index: 90;
-        }
-        
-        .scroll-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(157, 78, 221, 0.5);
+        .menu-item {
+            background: rgba(28, 0, 77, 0.7);
+            border: 2px solid #4a00e0;
+            border-radius: 10px;
+            padding: 20px 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(74, 0, 224, 0.2);
+            font-weight: bold;
+            font-size: 20px;
         }
         
-        .scroll-dot.active {
-            background: var(--accent-purple);
-            transform: scale(1.2);
+        .menu-item:hover {
+            background: rgba(58, 0, 158, 0.7);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 0, 224, 0.3);
         }
         
         footer {
             text-align: center;
-            padding: 2rem;
-            background: rgba(15, 5, 36, 0.9);
-            border-top: 1px solid rgba(157, 78, 221, 0.2);
-            min-width: 100vw;
+            padding: 20px;
+            background: rgba(20, 0, 50, 0.7);
+            margin-top: auto;
         }
         
-        footer a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        footer a:hover {
-            color: var(--accent-purple);
-        }
-        
-        .scroll-gradient {
+        .social-links {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, 
-                rgba(15, 5, 36, 0.8), 
-                rgba(30, 10, 78, 0.9), 
-                rgba(58, 29, 140, 1));
-            background-size: 100% 300%;
-            z-index: -1;
-            animation: gradientScroll 5s ease infinite alternate;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        @keyframes gradientScroll {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 0% 100%; }
+        .social-link {
+            background: #4a00e0;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: #7c4dff;
+            transform: translateX(-5px);
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="scroll-gradient"></div>
-    
-    <header>
-        <div class="nav-container">
-            <div class="logo">StateWar</div>
-            <nav>
-                <a href="#" class="nav-link" data-section="0">Главная</a>
-                <a href="#" class="nav-link" data-section="1">Возможности</a>
-                <a href="#" class="nav-link" data-section="2">Правила</a>
-                <a href="#" class="nav-link" data-section="3">Новости</a>
-                <a href="https://t.me/StateWar_bot" target="_blank">Начать игру</a>
-            </nav>
-        </div>
-    </header>
-    
-    <div class="main-container" id="main-container">
-        <section class="content-section">
-            <div class="section-content">
-                <h1>StateWar Bot</h1>
-                <p>Официальный сайт бота для стратегических баталий в Telegram. Создайте свое государство, развивайте экономику и ведите войны с другими игроками!</p>
-                <a href="https://t.me/StateWar_bot" class="btn" target="_blank">Запустить бота</a>
-                
-                <div class="news-container">
-                    <h3><i class="fas fa-bullhorn"></i> Последние обновления:</h3>
-                    <div class="news-item">
-                        <strong>Версия 2.3.1</strong> - Добавлена новая система альянсов и коалиций
-                    </div>
-                    <div class="news-item">
-                        <strong>Версия 2.2.9</strong> - Исправлены баги в экономической системе и балансе ресурсов
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="content-section">
-            <div class="section-content">
-                <h2><i class="fas fa-cogs"></i> Возможности бота</h2>
-                <div class="features">
-                    <div class="feature">
-                        <h3><i class="fas fa-flag"></i> Создание государства</h3>
-                        <p>Основайте свою страну, выберите флаг, гимн и политическую систему.</p>
-                        <p class="rule-detail">Доступны различные формы правления и экономические модели</p>
-                    </div>
-                    <div class="feature">
-                        <h3><i class="fas fa-chart-line"></i> Экономика</h3>
-                        <p>Развивайте промышленность, собирайте налоги, торгуйте ресурсами.</p>
-                        <p class="rule-detail">Сложная система производства и торговли</p>
-                    </div>
-                    <div class="feature">
-                        <h3><i class="fas fa-fighter-jet"></i> Военная система</h3>
-                        <p>Создавайте армию, разрабатывайте оружие, ведите войны.</p>
-                        <p class="rule-detail">Тактические бои с различными типами войск</p>
-                    </div>
-                    <div class="feature">
-                        <h3><i class="fas fa-handshake"></i> Дипломатия</h3>
-                        <p>Заключайте союзы, создавайте коалиции, влияйте на мировую политику.</p>
-                        <p class="rule-detail">Система договоров и международных организаций</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="content-section">
-            <div class="section-content">
-                <h2><i class="fas fa-gavel"></i> Правила игры</h2>
-                <div class="rules">
-                    <div class="rule">Реклама сторонних проектов
-                        <span class="rule-detail">Запрещена без согласования с администрацией</span>
-                    </div>
-                    <div class="rule">Расизм и розжиг
-                        <span class="rule-detail">Расовый, религиозный и политический розжиг строго запрещены</span>
-                    </div>
-                    <div class="rule">Оскорбления участников
-                        <span class="rule-detail">Не допускаются оскорбления и провокации конфликтов</span>
-                    </div>
-                    <div class="rule">Контент 18+
-                        <span class="rule-detail">Запрещен в любом виде (фото/видео/текст)</span>
-                    </div>
-                    <div class="rule">Скримеры и насилие
-                        <span class="rule-detail">Материалы с насилием блокируются без предупреждения</span>
-                    </div>
-                    <div class="rule">Флуд и спам
-                        <span class="rule-detail">Караются ограничением доступа к боту</span>
-                    </div>
-                    <div class="rule">Копирование администрации
-                        <span class="rule-detail">Запрещено выдавать себя за администрацию</span>
-                    </div>
-                    <div class="rule">Продажа аккаунтов
-                        <span class="rule-detail">Запрещена продажа аккаунтов, ресурсов и услуг</span>
-                    </div>
-                    <div class="rule">Финансовые махинации
-                        <span class="rule-detail">Скам приводит к перманентному бану</span>
-                    </div>
-                    <div class="rule">Попрошайничество
-                        <span class="rule-detail">Запрещены требования "дать в долг"</span>
-                    </div>
-                    <div class="rule">Кредитные отношения
-                        <span class="rule-detail">Личная ответственность игроков</span>
-                    </div>
-                    <div class="rule">Игровая валюта
-                        <span class="rule-detail">Запрещена продажа/покупка игровой валюты</span>
-                    </div>
-                    <div class="rule">Обращения к администрации
-                        <span class="rule-detail">Не злоупотребляйте обращениями</span>
-                    </div>
-                    <div class="rule">Ники игроков
-                        <span class="rule-detail">Запрещены оскорбительные и провокационные ники</span>
-                    </div>
-                    <div class="rule">Языки общения
-                        <span class="rule-detail">Разрешены русский/английский/украинский</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="content-section">
-            <div class="section-content">
-                <h2><i class="fas fa-newspaper"></i> Новости и обновления</h2>
-                <div class="news-container">
-                    <div class="news-item">
-                        <strong>25.10.2023</strong> - Добавлена новая система рейтингов и достижений. Теперь ваши успехи будут отмечены!
-                    </div>
-                    <div class="news-item">
-                        <strong>18.10.2023</strong> - Исправлены критические ошибки в боевой системе. Баланс сил восстановлен.
-                    </div>
-                    <div class="news-item">
-                        <strong>10.10.2023</strong> - Введены еженедельные турниры с призами для самых активных игроков.
-                    </div>
-                </div>
-                <a href="https://t.me/StateWar_news" class="btn" target="_blank"><i class="fas fa-paper-plane"></i> Все новости</a>
-            </div>
-        </section>
+    <div class="header">
+        <h1>StateWar</h1>
+        <p>statewar.github.io/StateWar_web/index.</p>
     </div>
     
-    <div class="scroll-indicator" id="scroll-indicator">
-        <div class="scroll-dot active" data-index="0"></div>
-        <div class="scroll-dot" data-index="1"></div>
-        <div class="scroll-dot" data-index="2"></div>
-        <div class="scroll-dot" data-index="3"></div>
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#">О проекте</a>
+        <a href="#">Правила</a>
+        <a href="#">Меню</a>
+    </nav>
+    
+    <div class="main-content">
+        <h2>STATEWAR</h2>
+        
+        <div class="menu">
+            <div class="menu-item">О ПРОЕКТЕ</div>
+            <div class="menu-item">ПРАВИЛА</div>
+            <div class="menu-item">НАЧАТЬ ИГРУ</div>
+        </div>
     </div>
     
     <div class="social-links">
         <a href="https://t.me/StateWarChat" class="social-link" target="_blank">
             <i class="fab fa-telegram"></i>
-            <span>Официальный чат</span>
+            <span>Чат</span>
         </a>
         <a href="https://t.me/StateWarOfficial" class="social-link" target="_blank">
             <i class="fab fa-telegram"></i>
-            <span>Новостной канал</span>
+            <span>Канал</span>
         </a>
     </div>
     
     <footer>
-        <p>© 2023 StateWar Bot | Официальный бот: <a href="https://t.me/StateWar_bot" target="_blank">@StateWar_bot</a></p>
-        <p>Техническая поддержка: <a href="https://t.me/q1234q56" target="_blank">@q1234q56</a></p>
+        <p>© 2025 StateWar_project. Все права защищены.</p>
     </footer>
-    
-    <script>
-        // Горизонтальная навигация между секциями
-        const mainContainer = document.getElementById('main-container');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const scrollDots = document.querySelectorAll('.scroll-dot');
-        let isScrolling = false;
-        let currentSection = 0;
-        
-        // Обработчики для навигационных ссылок
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sectionIndex = parseInt(link.getAttribute('data-section'));
-                scrollToSection(sectionIndex);
-            });
-        });
-        
-        // Обработчики для точек прокрутки
-        scrollDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const sectionIndex = parseInt(dot.getAttribute('data-index'));
-                scrollToSection(sectionIndex);
-            });
-        });
-        
-        // Функция плавной прокрутки к секции
-        function scrollToSection(index) {
-            if (isScrolling) return;
-            
-            isScrolling = true;
-            currentSection = index;
-            
-            // Прокрутка контейнера
-            mainContainer.scrollTo({
-                left: window.innerWidth * index,
-                behavior: 'smooth'
-            });
-            
-            // Обновление активной точки
-            updateActiveDot(index);
-            
-            // Сброс флага после завершения анимации
-            setTimeout(() => {
-                isScrolling = false;
-            }, 800);
-        }
-        
-        // Обновление активной точки навигации
-        function updateActiveDot(index) {
-            scrollDots.forEach(dot => {
-                dot.classList.remove('active');
-            });
-            scrollDots[index].classList.add('active');
-        }
-        
-        // Обработчик событий прокрутки
-        mainContainer.addEventListener('scroll', () => {
-            if (isScrolling) return;
-            
-            const scrollPosition = mainContainer.scrollLeft;
-            const sectionWidth = window.innerWidth;
-            const newSection = Math.round(scrollPosition / sectionWidth);
-            
-            if (newSection !== currentSection) {
-                currentSection = newSection;
-                updateActiveDot(newSection);
-            }
-        });
-        
-        // Динамическое изменение фона при скролле
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-            const scrollMax = document.body.scrollHeight - window.innerHeight;
-            const scrollPercent = scrollPosition / scrollMax;
-            
-            const gradient = document.querySelector('.scroll-gradient');
-            gradient.style.background = `linear-gradient(to bottom, 
-                rgba(15, 5, 36, ${0.8 + scrollPercent * 0.2}), 
-                rgba(30, 10, 78, ${0.9 + scrollPercent * 0.1}), 
-                rgba(58, 29, 140, 1))`;
-        });
-    </script>
 </body>
 </html>
