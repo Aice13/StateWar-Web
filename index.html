@@ -213,6 +213,12 @@
         .fade-in {
             animation: fadeIn 0.5s ease-out forwards;
         }
+
+        h2 {
+            word-break: keep-all;
+            white-space: nowrap;
+            margin: 20px auto;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -254,7 +260,7 @@
                 <li>Воевать с другими игроками</li>
                 <li>Заключать союзы</li>
             </ul>
-            <a href="#" class="back-btn" data-section="main">НАЗАД</a>
+            <div class="menu-item back-btn" data-section="main">НАЗАД</div>
         </div>
 
         <!-- Правила -->
@@ -274,7 +280,7 @@
                     <span class="rule-detail">Уважайте других игроков</span>
                 </div>
                 <div class="rule-item" data-number="4.">
-                    Не трогать родителей и родных
+                    Ни при каких условиях не трогать родителей и родных
                     <span class="rule-detail">Личные границы должны соблюдаться</span>
                 </div>
                 <div class="rule-item" data-number="5.">
@@ -282,7 +288,7 @@
                     <span class="rule-detail">Строго запрещено</span>
                 </div>
                 <div class="rule-item" data-number="6.">
-                    Не нарушать покой в голосовом чате
+                    Не нарушать покой обитателей голосового чата
                     <span class="rule-detail">Громкие звуки и помехи запрещены</span>
                 </div>
                 <div class="rule-item" data-number="7.">
@@ -290,19 +296,71 @@
                     <span class="rule-detail">Соблюдайте порядок в чате</span>
                 </div>
                 <div class="rule-item" data-number="8.">
-                    Не копировать аккаунты администрации
+                    Не копировать аккаунты администрации чата и аккаунт бота
                     <span class="rule-detail">Выдавать себя за админов запрещено</span>
                 </div>
                 <div class="rule-item" data-number="9.">
-                    Запрещено продавать аккаунты, контент и услуги
+                    Запрещено продавать: аккаунты, фото/видео контент, прочие услуги
                     <span class="rule-detail">Обмен валюты между ботами также запрещен</span>
                 </div>
                 <div class="rule-item" data-number="10.">
                     Не присылать скримеры и контент с насилием
                     <span class="rule-detail">Любой шок-контент запрещен</span>
                 </div>
+                <div class="rule-item" data-number="11.">
+                    Запрещено продавать "схемы заработка" с целью обмана
+                    <span class="rule-detail">Наказывается баном</span>
+                </div>
+                <div class="rule-item" data-number="12.">
+                    Попрошайничество в любом виде запрещено
+                    <span class="rule-detail">Просьбы "дать в долг" также запрещены</span>
+                </div>
+                <div class="rule-item" data-number="13.">
+                    Кредитные отношения - личная ответственность игроков
+                    <span class="rule-detail">Администрация не вмешивается</span>
+                </div>
+                <div class="rule-item" data-number="14.">
+                    Не писать создателю по поводу возвращения долга
+                    <span class="rule-detail">Это ваши личные договоренности</span>
+                </div>
+                <div class="rule-item" data-number="16.">
+                    Скам строго запрещен
+                    <span class="rule-detail">Наказывается перманентным баном</span>
+                </div>
+                <div class="rule-item" data-number="17.">
+                    Не надоедать админам по пустякам
+                    <span class="rule-detail">Лишние обращения могут быть наказаны</span>
+                </div>
+                <div class="rule-item" data-number="18.">
+                    Использовать бота в личных сообщениях для некоторых действий
+                    <span class="rule-detail">Некоторые функции доступны только в ЛС</span>
+                </div>
+                <div class="rule-item" data-number="19.">
+                    Не флудить пиаром кланов
+                    <span class="rule-detail">Пиар разрешен не чаще 1 раза в 10-15 минут</span>
+                </div>
+                <div class="rule-item" data-number="20.">
+                    Не кидать ссылку на беседу с кланом
+                    <span class="rule-detail">Клановая беседа только для участников клана</span>
+                </div>
+                <div class="rule-item" data-number="21.">
+                    Запрещено отправлять что-то, из-за чего вылетает Telegram
+                    <span class="rule-detail">Наказывается баном</span>
+                </div>
+                <div class="rule-item" data-number="22.">
+                    Запрещены ники, которые противоречат правилам
+                    <span class="rule-detail">Ники должны быть адекватными</span>
+                </div>
+                <div class="rule-item" data-number="23.">
+                    Общение разрешено на русском/английском/украинском языках
+                    <span class="rule-detail">Администрация не предоставляет услуги перевода</span>
+                </div>
             </div>
-            <a href="#" class="back-btn" data-section="main">НАЗАД</a>
+            <div class="rule-detail" style="margin-top: 20px; font-style: italic;">
+                Администрация проекта вправе изменять причину и время наказания без объяснения причин.
+                Незнание правил не освобождает от ответственности.
+            </div>
+            <div class="menu-item back-btn" data-section="main">НАЗАД</div>
         </div>
 
         <!-- Меню -->
@@ -350,7 +408,7 @@
         // Переключение между разделами с анимацией
         document.querySelectorAll('.nav-link, .menu-item, .back-btn').forEach(item => {
             item.addEventListener('click', function(e) {
-                if (this.hasAttribute('data-section') && !this.hasAttribute('href')) {
+                if (this.hasAttribute('data-section')) {
                     e.preventDefault();
                     const currentActive = document.querySelector('.section.active');
                     const nextSection = document.getElementById(this.getAttribute('data-section'));
@@ -374,4 +432,4 @@
         });
     </script>
 </body>
-    </html>
+                        </html>
